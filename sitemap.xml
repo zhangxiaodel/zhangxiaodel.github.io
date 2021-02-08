@@ -172,14 +172,14 @@
   </url>
   
   <url>
-    <loc>http://zhangxiaodel.github.io/tags/celery-flower-redis/</loc>
+    <loc>http://zhangxiaodel.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%A4%87%E4%BB%BD/</loc>
     <lastmod>2021-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://zhangxiaodel.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%A4%87%E4%BB%BD/</loc>
+    <loc>http://zhangxiaodel.github.io/tags/celery-flower-redis/</loc>
     <lastmod>2021-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -249,14 +249,14 @@
   </url>
   
   <url>
-    <loc>http://zhangxiaodel.github.io/tags/web-flask-jsonify/</loc>
+    <loc>http://zhangxiaodel.github.io/tags/pytest-mock/</loc>
     <lastmod>2021-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://zhangxiaodel.github.io/tags/pytest-mock/</loc>
+    <loc>http://zhangxiaodel.github.io/tags/web-flask-jsonify/</loc>
     <lastmod>2021-02-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

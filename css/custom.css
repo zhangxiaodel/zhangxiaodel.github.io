@@ -1,0 +1,22 @@
+@media screen and (min-width: 1280px) {
+    .container {
+        max-width: 1400px;
+    }
+
+
+    .column.is-3-widescreen {
+        flex: none;
+        width: 15%;
+    }
+
+    .column.is-3-widescreen {
+        flex: none;
+        width: 15%;
+    }
+
+    .column.is-6-widescreen {
+        flex: none;
+        width: 65%;
+    }
+}
+
