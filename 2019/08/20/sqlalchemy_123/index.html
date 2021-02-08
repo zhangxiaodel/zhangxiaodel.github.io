@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>转载sqlalchemy 简单使用 | run coder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="转载自jianshu https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;8d085e2f2657  SQLAlchemy ORM教程之一：Create SQLAlchemy ORM教程之二：Query （本文） SQLAlchemy ORM教程之三：Relationship   这是继SQLAlchemy ORM教程之一：Create后的第二篇教程。在上一篇中我们主要是解决了如何配置ORM系统，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转载sqlalchemy 简单使用">
+<meta property="og:url" content="http://zhangxiaodel.github.io/2019/08/20/sqlalchemy_123/index.html">
+<meta property="og:site_name" content="run coder">
+<meta property="og:description" content="转载自jianshu https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;8d085e2f2657  SQLAlchemy ORM教程之一：Create SQLAlchemy ORM教程之二：Query （本文） SQLAlchemy ORM教程之三：Relationship   这是继SQLAlchemy ORM教程之一：Create后的第二篇教程。在上一篇中我们主要是解决了如何配置ORM系统，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-08-20T09:01:24.000Z">
+<meta property="article:modified_time" content="2020-01-14T10:40:12.597Z">
+<meta property="article:author" content="zhangxiaodel">
+<meta property="article:tag" content="sqlalchemy, orm">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="run coder" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">run coder</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhangxiaodel.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sqlalchemy_123" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/20/sqlalchemy_123/" class="article-date">
+  <time datetime="2019-08-20T09:01:24.000Z" itemprop="datePublished">2019-08-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      转载sqlalchemy 简单使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8d085e2f2657">转载自jianshu https://www.jianshu.com/p/8d085e2f2657</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0d234e14b5d3">SQLAlchemy ORM教程之一：Create</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8d085e2f2657">SQLAlchemy ORM教程之二：Query （本文）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9771b0a3e589">SQLAlchemy ORM教程之三：Relationship</a></li>
+</ul>
+<hr>
+<p>这是继<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0d234e14b5d3">SQLAlchemy ORM教程之一：Create</a>后的第二篇教程。在上一篇中我们主要是解决了如何配置ORM系统，建立从类到表的映射的过程，以及如何插入和修改记录。在这个教程中我们主要解决使用的问题。</p>
+<h3 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h3><p><code>Session</code>的<code>query</code>函数会返回一个<code>Query</code>对象。<code>query</code>函数可以接受多种参数类型。可以是类，或者是类的instrumented <strong>descriptor</strong>。下面的这个例子取出了所有的<code>User</code>记录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> instance <span class="keyword">in</span> session.query(User).order_by(User.id):</span><br><span class="line">...     <span class="built_in">print</span>(instance.name, instance.fullname)</span><br><span class="line">ed Ed Jones</span><br><span class="line">wendy Wendy Williams</span><br><span class="line">mary Mary Contrary</span><br><span class="line">fred Fred Flinstone</span><br></pre></td></tr></table></figure>
+<p><code>Query</code>也接受ORM-instrumented descriptors作为参数。当多个参数传入时，返回结果为以同样顺序排列的tuples</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> name, fullname <span class="keyword">in</span> session.query(User.name, User.fullname):</span><br><span class="line">...     <span class="built_in">print</span>(name, fullname)</span><br><span class="line">ed Ed Jones</span><br><span class="line">wendy Wendy Williams</span><br><span class="line">mary Mary Contrary</span><br><span class="line">fred Fred Flinstone</span><br></pre></td></tr></table></figure>
+<p><code>Query</code>返回的tuples由<code>KeyedTuple</code>这个类提供，其成员除了用下标访问意外，还可以视为实例变量来获取。对应的变量的名称与被查询的类变量名称一样，如下例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> row <span class="keyword">in</span> session.query(User, User.name).all():</span><br><span class="line">...    <span class="built_in">print</span>(row.User, row.name)</span><br><span class="line">&lt;User(name=<span class="string">&#x27;ed&#x27;</span>, fullname=<span class="string">&#x27;Ed Jones&#x27;</span>, password=<span class="string">&#x27;f8s7ccs&#x27;</span>)&gt; ed</span><br><span class="line">&lt;User(name=<span class="string">&#x27;wendy&#x27;</span>, fullname=<span class="string">&#x27;Wendy Williams&#x27;</span>, password=<span class="string">&#x27;foobar&#x27;</span>)&gt; wendy</span><br><span class="line">&lt;User(name=<span class="string">&#x27;mary&#x27;</span>, fullname=<span class="string">&#x27;Mary Contrary&#x27;</span>, password=<span class="string">&#x27;xxg527&#x27;</span>)&gt; mary</span><br><span class="line">&lt;User(name=<span class="string">&#x27;fred&#x27;</span>, fullname=<span class="string">&#x27;Fred Flinstone&#x27;</span>, password=<span class="string">&#x27;blah&#x27;</span>)&gt; fred</span><br></pre></td></tr></table></figure>
+<p>你可以通过<code>label()</code>来制定descriptor对应实例变量的名称</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> row <span class="keyword">in</span> session.query(User.name.label(<span class="string">&#x27;name_label&#x27;</span>)).all():</span><br><span class="line">...    <span class="built_in">print</span>(row.name_label)</span><br><span class="line">ed</span><br><span class="line">wendy</span><br><span class="line">mary</span><br><span class="line">fred</span><br></pre></td></tr></table></figure>
+<p>而对于类参数而言，要实现同样的定制需要使用<code>aliased</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from sqlalchemy.orm import aliased</span><br><span class="line">&gt;&gt;&gt; user_alias = aliased(User, name=<span class="string">&#x27;user_alias&#x27;</span>)</span><br><span class="line"></span><br><span class="line">SQL&gt;&gt;&gt; <span class="keyword">for</span> row <span class="keyword">in</span> session.query(user_alias, user_alias.name).all():</span><br><span class="line">...    <span class="built_in">print</span>(row.user_alias)</span><br><span class="line">&lt;User(name=<span class="string">&#x27;ed&#x27;</span>, fullname=<span class="string">&#x27;Ed Jones&#x27;</span>, password=<span class="string">&#x27;f8s7ccs&#x27;</span>)&gt;</span><br><span class="line">&lt;User(name=<span class="string">&#x27;wendy&#x27;</span>, fullname=<span class="string">&#x27;Wendy Williams&#x27;</span>, password=<span class="string">&#x27;foobar&#x27;</span>)&gt;</span><br><span class="line">&lt;User(name=<span class="string">&#x27;mary&#x27;</span>, fullname=<span class="string">&#x27;Mary Contrary&#x27;</span>, password=<span class="string">&#x27;xxg527&#x27;</span>)&gt;</span><br><span class="line">&lt;User(name=<span class="string">&#x27;fred&#x27;</span>, fullname=<span class="string">&#x27;Fred Flinstone&#x27;</span>, password=<span class="string">&#x27;blah&#x27;</span>)&gt;</span><br></pre></td></tr></table></figure>
+<p>基本的查询操作除了上面这些之外，还包括OFFSET和LIMIT，这个可以通过Python的array slice来完成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> u <span class="keyword">in</span> session.query(User).order_by(User.id)[1:3]:</span><br><span class="line">...    <span class="built_in">print</span>(u)</span><br><span class="line">&lt;User(name=<span class="string">&#x27;wendy&#x27;</span>, fullname=<span class="string">&#x27;Wendy Williams&#x27;</span>, password=<span class="string">&#x27;foobar&#x27;</span>)&gt;</span><br><span class="line">&lt;User(name=<span class="string">&#x27;mary&#x27;</span>, fullname=<span class="string">&#x27;Mary Contrary&#x27;</span>, password=<span class="string">&#x27;xxg527&#x27;</span>)&gt;</span><br></pre></td></tr></table></figure>
+<p>上述过程实际上只涉及了整体取出的操作，而没有进行筛选，筛选常用的函数是<code>filter_by</code>和<code>filter</code>。其中后者比起前者要更灵活一些，你可以在后者的参数中使用python的运算符。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> name, <span class="keyword">in</span> session.query(User.name).\</span><br><span class="line">...             filter_by(fullname=<span class="string">&#x27;Ed Jones&#x27;</span>):</span><br><span class="line">...    <span class="built_in">print</span>(name)</span><br><span class="line">ed</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> name, <span class="keyword">in</span> session.query(User.name).\</span><br><span class="line">...             filter(User.fullname==<span class="string">&#x27;Ed Jones&#x27;</span>):</span><br><span class="line">...    <span class="built_in">print</span>(name)</span><br><span class="line">ed</span><br></pre></td></tr></table></figure>
+<p>注意<code>Query</code>对象是<strong>generative</strong>的，这意味你可以把他们串接起来调用，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> user <span class="keyword">in</span> session.query(User).\</span><br><span class="line">...          filter(User.name==<span class="string">&#x27;ed&#x27;</span>).\</span><br><span class="line">...          filter(User.fullname==<span class="string">&#x27;Ed Jones&#x27;</span>):</span><br><span class="line">...    <span class="built_in">print</span>(user)</span><br><span class="line">&lt;User(name=<span class="string">&#x27;ed&#x27;</span>, fullname=<span class="string">&#x27;Ed Jones&#x27;</span>, password=<span class="string">&#x27;f8s7ccs&#x27;</span>)&gt;</span><br></pre></td></tr></table></figure>
+<p>串接的<code>filter</code>之间是<strong>与</strong>的关系。</p>
+<h3 id="常用的filter操作符"><a href="#常用的filter操作符" class="headerlink" title="常用的filter操作符"></a>常用的filter操作符</h3><p>下面的这些操作符可以应用在<code>filter</code>函数中</p>
+<ul>
+<li><code>equals</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query.filter(User.name == <span class="string">&#x27;ed&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>not equals</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query.filter(User.name != <span class="string">&#x27;ed&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>LIKE</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query.filter(User.name.like(<span class="string">&#x27;%ed%&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>IN</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">query.filter(User.name.in_([<span class="string">&#x27;ed&#x27;</span>, <span class="string">&#x27;wendy&#x27;</span>, <span class="string">&#x27;jack&#x27;</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># works with query objects too:</span></span><br><span class="line">query.filter(User.name.in_(</span><br><span class="line">        session.query(User.name).filter(User.name.like(<span class="string">&#x27;%ed%&#x27;</span>))</span><br><span class="line">))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>NOT IN</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query.filter(~User.name.in_([<span class="string">&#x27;ed&#x27;</span>, <span class="string">&#x27;wendy&#x27;</span>, <span class="string">&#x27;jack&#x27;</span>]))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>IS NULL</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">query.filter(User.name == None)</span><br><span class="line"></span><br><span class="line"><span class="comment"># alternatively, if pep8/linters are a concern</span></span><br><span class="line">query.filter(User.name.is_(None))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>IS NOT NULL</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">query.filter(User.name != None)</span><br><span class="line"></span><br><span class="line"><span class="comment"># alternatively, if pep8/linters are a concern</span></span><br><span class="line">query.filter(User.name.isnot(None))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>AND</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use and_()</span></span><br><span class="line">from sqlalchemy import and_</span><br><span class="line">query.filter(and_(User.name == <span class="string">&#x27;ed&#x27;</span>, User.fullname == <span class="string">&#x27;Ed Jones&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># or send multiple expressions to .filter()</span></span><br><span class="line">query.filter(User.name == <span class="string">&#x27;ed&#x27;</span>, User.fullname == <span class="string">&#x27;Ed Jones&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># or chain multiple filter()/filter_by() calls</span></span><br><span class="line">query.filter(User.name == <span class="string">&#x27;ed&#x27;</span>).filter(User.fullname == <span class="string">&#x27;Ed Jones&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>OR</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from sqlalchemy import or_</span><br><span class="line">query.filter(or_(User.name == <span class="string">&#x27;ed&#x27;</span>, User.name == <span class="string">&#x27;wendy&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>MATCH</code>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query.filter(User.name.match(<span class="string">&#x27;wendy&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="返回列表-List-和单项-Scalar"><a href="#返回列表-List-和单项-Scalar" class="headerlink" title="返回列表(List)和单项(Scalar)"></a>返回列表(List)和单项(Scalar)</h3><p>很多<code>Query</code>的方法执行了SQL命令并返回了取出的数据库结果。</p>
+<ul>
+<li><code>all()</code>返回一个列表:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; query = session.query(User).filter(User.name.like(<span class="string">&#x27;%ed&#x27;</span>)).order_by(User.id)</span><br><span class="line">SQL&gt;&gt;&gt; query.all()</span><br><span class="line">[&lt;User(name=<span class="string">&#x27;ed&#x27;</span>, fullname=<span class="string">&#x27;Ed Jones&#x27;</span>, password=<span class="string">&#x27;f8s7ccs&#x27;</span>)&gt;,</span><br><span class="line">      &lt;User(name=<span class="string">&#x27;fred&#x27;</span>, fullname=<span class="string">&#x27;Fred Flinstone&#x27;</span>, password=<span class="string">&#x27;blah&#x27;</span>)&gt;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>first()</code>返回至多一个结果，而且以单项形式，而不是只有一个元素的tuple形式返回这个结果.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; query.first()</span><br><span class="line">&lt;User(name=<span class="string">&#x27;ed&#x27;</span>, fullname=<span class="string">&#x27;Ed Jones&#x27;</span>, password=<span class="string">&#x27;f8s7ccs&#x27;</span>)&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>one()</code>返回且仅返回一个查询结果。当结果的数量不足一个或者多于一个时会报错。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; user = query.one()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">...</span><br><span class="line">MultipleResultsFound: Multiple rows were found <span class="keyword">for</span> one()</span><br></pre></td></tr></table></figure>
+<p>没有查找到结果时：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; user = query.filter(User.id == <span class="number">99</span>).one()</span><br><span class="line">Traceback (most recent call last)<span class="symbol">:</span></span><br><span class="line">...</span><br><span class="line"><span class="symbol">NoResultFound:</span> No row was found <span class="keyword">for</span> one()</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>one_or_none()</code>：从名称可以看出，当结果数量为0时返回<code>None</code>， 多于1个时报错</p>
+</li>
+<li><p><code>scalar()</code>和<code>one()</code>类似，但是返回单项而不是tuple</p>
+</li>
+</ul>
+<h3 id="嵌入使用SQL"><a href="#嵌入使用SQL" class="headerlink" title="嵌入使用SQL"></a>嵌入使用SQL</h3><p>你可以在<code>Query</code>中通过<code>text()</code>使用SQL语句。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from sqlalchemy import text</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">for</span> user <span class="keyword">in</span> session.query(User).\</span><br><span class="line">...             filter(text(<span class="string">&quot;id&lt;224&quot;</span>)).\</span><br><span class="line">...             order_by(text(<span class="string">&quot;id&quot;</span>)).all():</span><br><span class="line">...     <span class="built_in">print</span>(user.name)</span><br><span class="line">ed</span><br><span class="line">wendy</span><br><span class="line">mary</span><br><span class="line">fred</span><br></pre></td></tr></table></figure>
+<p>除了上面这种直接将参数写进字符串的方式外，你还可以通过<code>params()</code>方法来传递参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; session.query(User).filter(text(<span class="string">&quot;id&lt;:value and name=:name&quot;</span>)).\</span><br><span class="line">...     params(value=224, name=<span class="string">&#x27;fred&#x27;</span>).order_by(User.id).one()</span><br><span class="line">&lt;User(name=<span class="string">&#x27;fred&#x27;</span>, fullname=<span class="string">&#x27;Fred Flinstone&#x27;</span>, password=<span class="string">&#x27;blah&#x27;</span>)&gt;</span><br></pre></td></tr></table></figure>
+<p>并且，你可以直接使用完整的SQL语句，但是要注意将表名和列明写正确。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; session.query(User).from_statement(</span><br><span class="line">...                     text(<span class="string">&quot;SELECT * FROM users where name=:name&quot;</span>)).\</span><br><span class="line">...                     params(name=<span class="string">&#x27;ed&#x27;</span>).all()</span><br><span class="line">[&lt;User(name=<span class="string">&#x27;ed&#x27;</span>, fullname=<span class="string">&#x27;Ed Jones&#x27;</span>, password=<span class="string">&#x27;f8s7ccs&#x27;</span>)&gt;]</span><br></pre></td></tr></table></figure>
+<h3 id="计数"><a href="#计数" class="headerlink" title="计数"></a>计数</h3><p><code>Query</code>定义了一个很方便的计数函数<code>count()</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; session.query(User).filter(User.name.like(<span class="string">&#x27;%ed&#x27;</span>)).count()</span><br><span class="line">SELECT count(*) AS count_1</span><br><span class="line">FROM (SELECT users.id AS users_id,</span><br><span class="line">                users.name AS users_name,</span><br><span class="line">                users.fullname AS users_fullname,</span><br><span class="line">                users.password AS users_password</span><br><span class="line">FROM users</span><br><span class="line">WHERE users.name LIKE ?) AS anon_1</span><br><span class="line">(<span class="string">&#x27;%ed&#x27;</span>,)</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p>注意上面我们同时列出了实际的SQL指令。在SQLAlchemy中，我们总是将被计数的查询打包成一个子查询，然后对这个子查询进行计数。即便是最简单的<code>SELECT count(*) FROM table</code>，也会如此处理。为了更精细的控制计数过程，我们可以采用<code>func.count()</code>这个函数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from sqlalchemy import func</span><br><span class="line">SQL&gt;&gt;&gt; session.query(func.count(User.name).label(<span class="string">&#x27;ucnt&#x27;</span>), User.name).group_by(User.name).all()</span><br><span class="line">SELECT count(users.name) AS count_1, users.name AS users_name</span><br><span class="line">FROM users GROUP BY users.name</span><br><span class="line">()</span><br><span class="line">[(1, u<span class="string">&#x27;ed&#x27;</span>), (1, u<span class="string">&#x27;fred&#x27;</span>), (1, u<span class="string">&#x27;mary&#x27;</span>), (1, u<span class="string">&#x27;wendy&#x27;</span>)]</span><br></pre></td></tr></table></figure>
+<p>为了实现最简单的<code>SELECT count(*) FROM table</code>，我们可以如下调用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; session.query(func.count(<span class="string">&#x27;*&#x27;</span>).label(<span class="string">&#x27;ucnt&#x27;</span>)).select_from(User).scalar()</span><br><span class="line">SELECT count(?) AS count_1</span><br><span class="line">FROM users</span><br><span class="line">(<span class="string">&#x27;*&#x27;</span>,)</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p>如果我们对<code>User</code>的主键进行计数，那么<code>select_from</code>也可以省略。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; session.query(func.count(User.id)).scalar()</span><br><span class="line">SELECT count(users.id) AS count_1</span><br><span class="line">FROM users</span><br><span class="line">()</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<h4 id="在下一篇教程里面我们将会介绍SQLAlchemy对于『关系』的处理方式，以及针对关系的更加复杂的查询。"><a href="#在下一篇教程里面我们将会介绍SQLAlchemy对于『关系』的处理方式，以及针对关系的更加复杂的查询。" class="headerlink" title="在下一篇教程里面我们将会介绍SQLAlchemy对于『关系』的处理方式，以及针对关系的更加复杂的查询。"></a>在下一篇教程里面我们将会介绍SQLAlchemy对于『关系』的处理方式，以及针对关系的更加复杂的查询。</h4><p>教程的第三部分传送门<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9771b0a3e589">SQLAlchemy ORM教程之三：Relationship</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhangxiaodel.github.io/2019/08/20/sqlalchemy_123/" data-id="ckkw9yr4n000xsk0f5ck616ok" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlalchemy-orm/" rel="tag">sqlalchemy, orm</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/27/jsonify/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          jsonify 支持对象类型
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/19/flask_123/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用itsdangerous生成临时身份令牌</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BundleAnalyzer-Webpack-externals-chunk-vendor/" rel="tag">BundleAnalyzer,  Webpack externals, chunk-vendor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/celery-flower-redis/" rel="tag">celery ,  flower , redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dict-hash/" rel="tag">dict, hash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-request/" rel="tag">flask, request</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go-test-TestMain/" rel="tag">go test TestMain</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/goroutine-go-pool-%E5%B9%B6%E5%8F%91-%E5%8D%8F%E7%A8%8B/" rel="tag">goroutine go pool 并发 协程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json-partial/" rel="tag">json ,  partial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pr-pull-request/" rel="tag">pr, pull request</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pyenv-python3-6-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" rel="tag">pyenv, python3.6 ,虚拟环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pytest-mock/" rel="tag">pytest, mock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python3-7-virtualenv-bz2/" rel="tag">python3.7, virtualenv , bz2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/singleflight-goroutine/" rel="tag">singleflight goroutine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlalchemy-orm/" rel="tag">sqlalchemy, orm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuejs-class/" rel="tag">vuejs, class</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-csrf-xss/" rel="tag">web, csrf ,xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-flask-jsonify/" rel="tag">web, flask ,jsonify</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-flask-token/" rel="tag">web, flask ,token</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%A4%87%E4%BB%BD/" rel="tag">数据库,备份</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BundleAnalyzer-Webpack-externals-chunk-vendor/" style="font-size: 10px;">BundleAnalyzer,  Webpack externals, chunk-vendor</a> <a href="/tags/celery-flower-redis/" style="font-size: 10px;">celery ,  flower , redis</a> <a href="/tags/dict-hash/" style="font-size: 10px;">dict, hash</a> <a href="/tags/flask-request/" style="font-size: 10px;">flask, request</a> <a href="/tags/go-test-TestMain/" style="font-size: 10px;">go test TestMain</a> <a href="/tags/goroutine-go-pool-%E5%B9%B6%E5%8F%91-%E5%8D%8F%E7%A8%8B/" style="font-size: 20px;">goroutine go pool 并发 协程</a> <a href="/tags/json-partial/" style="font-size: 10px;">json ,  partial</a> <a href="/tags/pr-pull-request/" style="font-size: 10px;">pr, pull request</a> <a href="/tags/pyenv-python3-6-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">pyenv, python3.6 ,虚拟环境</a> <a href="/tags/pytest-mock/" style="font-size: 10px;">pytest, mock</a> <a href="/tags/python3-7-virtualenv-bz2/" style="font-size: 10px;">python3.7, virtualenv , bz2</a> <a href="/tags/singleflight-goroutine/" style="font-size: 10px;">singleflight goroutine</a> <a href="/tags/sqlalchemy-orm/" style="font-size: 10px;">sqlalchemy, orm</a> <a href="/tags/vuejs-class/" style="font-size: 10px;">vuejs, class</a> <a href="/tags/web-csrf-xss/" style="font-size: 10px;">web, csrf ,xss</a> <a href="/tags/web-flask-jsonify/" style="font-size: 10px;">web, flask ,jsonify</a> <a href="/tags/web-flask-token/" style="font-size: 10px;">web, flask ,token</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%A4%87%E4%BB%BD/" style="font-size: 10px;">数据库,备份</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/25/vue-webpacket-externals/">BundleAnalyzer Webpack externals配置,优化chunk-vendor大小,提高初始加载速度</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/07/go4-singleflight/">singleflight在并发场景下保护下游业务</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/29/go3-test/">go test</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/go2-goroutinepool-limiter/">自实现 Goroutine pool</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/go1-goroutinepool/">利用有缓冲通道写满时阻塞的特点来控制协程的并发数量</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 zhangxiaodel<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

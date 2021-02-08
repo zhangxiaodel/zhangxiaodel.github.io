@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/index.html</loc>
+    
+    <lastmod>2021-01-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2021/01/25/vue-webpacket-externals/</loc>
+    
+    <lastmod>2021-01-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2021/01/07/go4-singleflight/</loc>
+    
+    <lastmod>2021-01-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2020/12/29/go3-test/</loc>
+    
+    <lastmod>2020-12-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/07/hello-world/</loc>
+    
+    <lastmod>2020-12-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2020/12/16/go2-goroutinepool-limiter/</loc>
+    
+    <lastmod>2020-12-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2020/12/16/go1-goroutinepool/</loc>
+    
+    <lastmod>2020-12-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2020/12/08/first-pr/</loc>
+    
+    <lastmod>2020-12-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2020/11/20/py37-pandas-bz2/</loc>
+    
+    <lastmod>2020-11-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/10/24/py-test/</loc>
+    
+    <lastmod>2020-07-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2020/07/24/HashedDict/</loc>
+    
+    <lastmod>2020-07-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/14/pandas_123/</loc>
+    
+    <lastmod>2020-01-15</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/20/sqlalchemy_123/</loc>
+    
+    <lastmod>2020-01-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/10/18/celery-123/</loc>
+    
+    <lastmod>2019-10-18</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/09/20/vue-class/</loc>
+    
+    <lastmod>2019-09-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/11/db-1/</loc>
+    
+    <lastmod>2019-09-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/09/05/flask_request_process123/</loc>
+    
+    <lastmod>2019-09-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/31/httponly/</loc>
+    
+    <lastmod>2019-08-31</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/27/jsonify/</loc>
+    
+    <lastmod>2019-08-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/28/env_py/</loc>
+    
+    <lastmod>2019-08-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/19/flask_123/</loc>
+    
+    <lastmod>2019-08-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/2019/08/13/json-format/</loc>
+    
+    <lastmod>2019-08-13</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>http://zhangxiaodel.github.io/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/dict-hash/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/celery-flower-redis/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%A4%87%E4%BB%BD/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/pyenv-python3-6-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/pr-pull-request/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/web-flask-token/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/flask-request/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/goroutine-go-pool-%E5%B9%B6%E5%8F%91-%E5%8D%8F%E7%A8%8B/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/go-test-TestMain/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/singleflight-goroutine/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/web-csrf-xss/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/json-partial/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/web-flask-jsonify/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/pytest-mock/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/python3-7-virtualenv-bz2/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/sqlalchemy-orm/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/vuejs-class/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://zhangxiaodel.github.io/tags/BundleAnalyzer-Webpack-externals-chunk-vendor/</loc>
+    <lastmod>2021-02-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+</urlset>
