@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>微服务实战 Microservices-in-Action - run coder</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="run coder"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="run coder"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="摘录自微服务实战     微服务实战摩根·布鲁斯 保罗·A.佩雷拉131个笔记 ◆ 译者序  通过将现有的单体应用或者业务领域进行拆分，分而治之来降低系统的复杂性和维护难度，这是一种很普遍的理念。   微服务架构不仅涉及架构设计和开发阶段，还包含了测试、部署以及运维阶段，是一个完整的生命周期。   以往的许多图书要么过于理论化，要么过于偏向技术应用层面的实践，要么仅侧重于某一个微服务的某一个阶段"><meta property="og:type" content="article"><meta property="og:title" content="微服务实战 Microservices-in-Action"><meta property="og:url" content="http://zhangxiaodel.github.io/2022/09/24/Microservices-in-Action/"><meta property="og:site_name" content="run coder"><meta property="og:description" content="摘录自微服务实战     微服务实战摩根·布鲁斯 保罗·A.佩雷拉131个笔记 ◆ 译者序  通过将现有的单体应用或者业务领域进行拆分，分而治之来降低系统的复杂性和维护难度，这是一种很普遍的理念。   微服务架构不仅涉及架构设计和开发阶段，还包含了测试、部署以及运维阶段，是一个完整的生命周期。   以往的许多图书要么过于理论化，要么过于偏向技术应用层面的实践，要么仅侧重于某一个微服务的某一个阶段"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://zhangxiaodel.github.io/img/og_image.png"><meta property="article:published_time" content="2022-09-24T08:55:10.000Z"><meta property="article:modified_time" content="2022-09-24T09:31:40.370Z"><meta property="article:author" content="zhangxiaodel"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://zhangxiaodel.github.io/2022/09/24/Microservices-in-Action/"},"headline":"微服务实战 Microservices-in-Action","image":["http://zhangxiaodel.github.io/img/og_image.png"],"datePublished":"2022-09-24T08:55:10.000Z","dateModified":"2022-09-24T09:31:40.370Z","author":{"@type":"Person","name":"zhangxiaodel"},"publisher":{"@type":"Organization","name":"run coder","logo":{"@type":"ImageObject"}},"description":"摘录自微服务实战     微服务实战摩根·布鲁斯 保罗·A.佩雷拉131个笔记 ◆ 译者序  通过将现有的单体应用或者业务领域进行拆分，分而治之来降低系统的复杂性和维护难度，这是一种很普遍的理念。   微服务架构不仅涉及架构设计和开发阶段，还包含了测试、部署以及运维阶段，是一个完整的生命周期。   以往的许多图书要么过于理论化，要么过于偏向技术应用层面的实践，要么仅侧重于某一个微服务的某一个阶段"}</script><link rel="canonical" href="http://zhangxiaodel.github.io/2022/09/24/Microservices-in-Action/"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="run coder" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">run coder</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/archives">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/zhangxiaodel"><i class="fab fa-github"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-09-24T08:55:10.000Z" title="9/24/2022, 4:55:10 PM">2022-09-24</time>发表</span><span class="level-item"><time dateTime="2022-09-24T09:31:40.370Z" title="9/24/2022, 5:31:40 PM">2022-09-24</time>更新</span></div></div><h1 class="title is-3 is-size-4-mobile">微服务实战 Microservices-in-Action</h1><div class="content"><blockquote>
+<p>摘录自<a target="_blank" rel="noopener" href="https://book.douban.com/subject/35055826/">微服务实战</a>  </p>
+</blockquote>
+<hr>
+<p>微服务实战<br>摩根·布鲁斯 保罗·A.佩雷拉<br>131个笔记</p>
+<p>◆ 译者序</p>
+<blockquote>
+<p>通过将现有的单体应用或者业务领域进行拆分，分而治之来降低系统的复杂性和维护难度，这是一种很普遍的理念。</p>
+</blockquote>
+<blockquote>
+<p>微服务架构不仅涉及架构设计和开发阶段，还包含了测试、部署以及运维阶段，是一个完整的生命周期。</p>
+</blockquote>
+<blockquote>
+<p>以往的许多图书要么过于理论化，要么过于偏向技术应用层面的实践，要么仅侧重于某一个微服务的某一个阶段。</p>
+</blockquote>
+<p>◆ 第1章 微服务的设计与运行</p>
+<blockquote>
+<p>微服务为我们提供了一种更好地持续交付业务影响的方式。相较于单体应用，使用微服务构建出来的应用是由一系列松耦合的、自治的服务组成的</p>
+</blockquote>
+<blockquote>
+<p>想要通过微服务来交付价值，团队就不能只关注开发这一步，还需要在部署、监控和诊断这些运维领域具备专业能力</p>
+</blockquote>
+<p>◆ 1.1 什么是微服务应用</p>
+<blockquote>
+<p>微服务应用是一系列自治服务的集合，每个服务只负责完成一块功能，这些服务共同合作来就可以完成某些更加复杂的操作</p>
+</blockquote>
+<blockquote>
+<p>将那些因相同原因而修改的内容聚合到一起，将那些因不同原因而修改的内容进行拆分</p>
+</blockquote>
+<blockquote>
+<p>每个微服务都拥有自己的数据存储，如果有的话。这能够降低服务之间的耦合度，因为其他服务只能通过这个服务提供的接口来访问它们自己所不拥有的数据。</p>
+</blockquote>
+<blockquote>
+<p>微服务应用具备一些很有意思的技术特性：按照单一功能来开发服务可以让架构师能够在规模和职责上很自然地划定界限；自治性使得开发者可以独立地对这些服务进行开发、部署和扩容</p>
+</blockquote>
+<blockquote>
+<p>自治性也是一种团队文化。将各个服务的责任和所有权委派给有责任交付商业价值的团队</p>
+</blockquote>
+<blockquote>
+<p>微服务与生俱来地具备故障隔离的机制：如果开发者独立地部署这些微服务，那么当应用或者基础设施出现故障后，故障将只会影响到整个系统的一部分功能。同样，部署的功能粒度越小，开发者越能更平缓地对系统进行变更</p>
+</blockquote>
+<blockquote>
+<p>开发者需要使用自动化来保证部署和系统运维过程中的正确性</p>
+</blockquote>
+<blockquote>
+<p>有一些公司同时采用了多种不同的技术，这使得微服务成为很自然的选择</p>
+</blockquote>
+<blockquote>
+<p>让开发者在解决业务问题的时候有更大的技术选择范围</p>
+</blockquote>
+<blockquote>
+<p>软件开发的目标是持续地缩短交付周期来产生积极的商业价值。</p>
+</blockquote>
+<blockquote>
+<p>在没有严格规范的团队中，软件模块和上下文边界含混不清，导致组件之间产生意料之外的紧耦合</p>
+</blockquote>
+<blockquote>
+<p>微服务通过三种方式来降低冲突和风险：在开发阶段将依赖进行隔离和最小化；开发者可以对单个的内聚组件进行思考，而非整个系统；能够持续交付轻量的、独立的变更。</p>
+</blockquote>
+<blockquote>
+<p>通过部署更小的功能元素，开发者可以降低每次独立部署的潜在风险，更好地隔离对线上系统的改动。</p>
+</blockquote>
+<p>◆ 1.2 微服务的挑战</p>
+<blockquote>
+<p>在将功能和数据所有权分发到多个自治的服务上的同时，开发者也将整个应用的稳定性和安全操作的责任分配到了这些服务上</p>
+</blockquote>
+<blockquote>
+<p>正确识别服务间的边界和契约是很困难的，而且一旦确定，是很难对它们进行改动的</p>
+</blockquote>
+<blockquote>
+<p>微服务是分布式系统，所以需要对状态、一致性和网络可靠性这些内容做出不同的假设</p>
+</blockquote>
+<blockquote>
+<p>任何可能出现故障的东西最终肯定会出现故障</p>
+</blockquote>
+<p>◆ 1.3 微服务开发生命周期</p>
+<blockquote>
+<p> 微服务开发周期的三大迭代阶段：设计、部署和监控</p>
+</blockquote>
+<blockquote>
+<p>虽然在开始的时候，微服务方案的开发速度会慢一些，但是能够降低未来开发的冲突和风险。同样，随着工具和框架越来越成熟，微服务最佳实践不再那么令人生畏，会变得越来越容易应用</p>
+</blockquote>
+<blockquote>
+<p>开发者应该将部署步骤标准化以简化系统操作，并在这些服务上保持一致。为了做到这一点，开发者需要做到两点：其一，将微服务部署的人为操作标准化；其二，实现持续交付的流水线</p>
+</blockquote>
+<blockquote>
+<p>容器将应用的打包过程、运行接口进行了标准化，并且为操作环境和代码提供了不可变（immutability）的特性。这使得它们成了在更高层次进行组合的强有力的构件。通过使用容器，开发者可以定义任何服务的完整执行环境并将它们相互隔离</p>
+</blockquote>
+<blockquote>
+<p>为了能够持续地交付软件，开发者需要关注以下两个目标。（1）制订一组软件必须通过的验证条件。在部署流程的每个环节，开发者都应该能够证明代码的正确性。（2）代码从提交状态发布到生产环境上的流水线实现自动化。</p>
+</blockquote>
+<blockquote>
+<p>在生产环境中，开发者需要了解系统的运行情况。它的重要性有两点：其一，开发者想要主动发现系统中的薄弱环节并进行重构；其二，开发者需要了解系统的运行方式。</p>
+</blockquote>
+<blockquote>
+<p>开发者需要在设计和实现这些服务时提高“透明性”的优先级。收集日志和一些数据指标，并将它们统一起来用于分析和告警。这样开发者在监控和分析系统的行为时，就可以诉诸于所构建的这个唯一的可信来源</p>
+</blockquote>
+<p>◆ 2.3 开发新功能</p>
+<blockquote>
+<p>在划定微服务范围时，开发者需要确保拆分系统所增加的复杂度不会超过所带来的益处</p>
+</blockquote>
+<blockquote>
+<p>服务协作可以是点到点方式的，也可以是事件驱动方式的。点到点的通信通常是同步的，而事件驱动的通信通常是异步的。许多微服务应用起初使用的都是同步通信方式</p>
+</blockquote>
+<p>◆ 2.5 将功能发布到生产环境中</p>
+<blockquote>
+<p>将开发过程标准化。开发者应该评审代码的改动、编写对应的测试代码以及维护源代码的版本控制。但愿没有人对此要求表示意外或感到奇怪</p>
+</blockquote>
+<blockquote>
+<p>将部署过程标准化和自动化。开发者应该彻底地验证所要提交到生产环境的代码变更，且要保证部署过程不需要工程师的介入，也就是说，要做成部署流水线。</p>
+</blockquote>
+<blockquote>
+<p>为微服务应用开发完整的监控系统是一项很复杂的任务。开发者所采用的监控深入度会随着服务的数量和复杂度的提升而演化</p>
+</blockquote>
+<p>◆ 2.6 大规模微服务开发</p>
+<blockquote>
+<p>虽然微服务使得不同的服务可以选择不同的语言和框架，但是我们也很容易明白，不选择一套合理的标准和限制，系统会杂乱和脆弱得难以想象。</p>
+</blockquote>
+<blockquote>
+<p>即便是最简单的日志消息格式，一致性和标准化也能够让在不同服务之间进行问题诊断和请求跟踪更加容易</p>
+</blockquote>
+<p>◆ 2.8 小结</p>
+<blockquote>
+<p>API网关是一种常见的模式，它将微服务架构的复杂性进行了封装和抽象，所以前端或者外部消费者不需要考虑这部分复杂度</p>
+</blockquote>
+<blockquote>
+<p>如果开发者可以可靠地部署和监控某个服务，就可以对这个服务更有信心。</p>
+</blockquote>
+<p>◆ 3.1 整体架构</p>
+<blockquote>
+<p>架构师的职责是确保应用的技术基础能够支持快节奏的开发以及频繁的变化</p>
+</blockquote>
+<p>◆ 3.2 微服务平台</p>
+<blockquote>
+<p>微服务并不是独立存在的。微服务需要由如下基础设施提供支持。（1）服务运行的部署目标，包括基础设施的基本元件，如负载均衡器和虚拟机。（2）日志聚合和监控聚合用于观测服务运行情况。（3）一致且可重复的部署流水线，用于测试和发布新服务或者新版本。（4）支持安全运行，如网络控制、涉密信息管理和应用加固。（5）通信通道和服务发现方案，用于支持服务间交互。</p>
+</blockquote>
+<p>◆ 3.5 服务边界</p>
+<blockquote>
+<p>3种相关但又不同的应用边界模式：API网关、服务于前端的后端以及消费者驱动的网关</p>
+</blockquote>
+<blockquote>
+<p>API网关在底层的服务后端之上为客户端提供了一个统一的入口点。它会代理发给下层服务的请求并对它们的返回结果进行一定的转换。API网关也可以处理一些客户端关注的其他横向问题，比如认证和请求签名。</p>
+</blockquote>
+<blockquote>
+<p>服务于前端的后端（BFF）模式是API网关模式的一种变形。尽管API网关模式很简洁，但是它也存在一些缺点。如果API网关为多个客户端应用充当组合点的角色，它承担的职责就会越来越多。</p>
+</blockquote>
+<p>◆ 3.7 小结</p>
+<blockquote>
+<p>在微服务应用中，同步通信通常是第一选择，并且它非常适合命令型的交互，但是也存在缺点——会增加耦合性和不稳定性。</p>
+</blockquote>
+<blockquote>
+<p>异步通信更加灵活，能够适应快速的系统演化，付出的代价是复杂度增加。</p>
+</blockquote>
+<p>◆ 4.2 按业务能力划分</p>
+<blockquote>
+<p>业务能力是指组织为了创造价值和实现业务目标所做的事情。被划为业务能力一类的微服务直接反映的是业务目标</p>
+</blockquote>
+<blockquote>
+<p>一个领域的任何解决方案都是由若干个限界上下文组成的。每个上下文内的各个模型是高度内聚的，并且对现实世界抱有相同的认知。每个上下文之间都有明确且牢固的边界。</p>
+</blockquote>
+<p>◆ 5.1 分布式应用的事务一致性</p>
+<blockquote>
+<p>。数据所有权的去中心化能有助于确保服务的独立性和松耦合，但是这也使得我们不得不在系统层面上提供一套机制来维护整体数据的一致性。</p>
+</blockquote>
+<blockquote>
+<p>在微服务应用中，可用性是处理给定的操作所涉及的所有微服务的可用性的乘积。</p>
+</blockquote>
+<blockquote>
+<p>将重要的编配职责交给事务管理器同样违背了微服务的核心原则：服务自治。</p>
+</blockquote>
+<blockquote>
+<p>分布式事务是通过给处于事务中的资源添加锁来确保隔离性的。这使得分布式事务不适合于那些耗时较长的操作，因为这会增加竞争和死锁的风险</p>
+</blockquote>
+<p>◆ 5.2 基于事件的通信</p>
+<blockquote>
+<p>事件使得开发者可以用一种乐观的方式来实现高可用。比如，即便fee服务出现故障，order服务仍旧能够创建订单。当fee服务恢复后，它可以继续处理积压的事件。我们可以将这个方法扩展到回滚的场景中：如果由于金额不足导致fee服务收费失败，fee服务可以发送一个ChargeFailed事件，然后其他服务就可以消费该事件来取消下单操作</p>
+</blockquote>
+<p>◆ 5.3 Saga</p>
+<blockquote>
+<p>在设计微服务时，我们需要把补偿考虑在内，以确保整个应用有足够的恢复能力。</p>
+</blockquote>
+<blockquote>
+<p>这种编排式的交互很有用，因为参与交互的各个服务之间不需要明确知道对方的存在，这也就确保了它们之间是松耦合的。相应地，这也提高了每个服务的自治性。可惜的是，这个方案并非完美无缺。</p>
+</blockquote>
+<blockquote>
+<p>一般来说，当选择异步的通信方式时，开发者必须在监控和跟踪技术方面上投入较多资源来确保能够跟踪系统的执行流程。</p>
+</blockquote>
+<p>◆ 5.4 分布式世界中的查询操作</p>
+<blockquote>
+<p>数据所有权的去中心化同样使得获取数据变得越来越困难，因为我们不再可以通过数据库层面的join关联这样的方式来聚合相关的数据。在应用的UI层展示来自于不同服务的数据通常是必要的功能。</p>
+</blockquote>
+<blockquote>
+<p>我们可以通过引入批量查询接口来改进查询性能，如代码清单5.1所示。不同于获取所有客户信息，我们可以只获取第一页数据；不同于一个个地获取每个客户的订单，我们可以使用一个ID列表来获取所有数据。</p>
+</blockquote>
+<blockquote>
+<p>CAP理论￼告诉我们，我们不可能两全其美：我们需要在可用性（成功返回一个结果，但不保证数据是最新的）和一致性（返回当前最新的状态，或者出错）两者之间进行选择。</p>
+</blockquote>
+<blockquote>
+<p>如果在开发系统时，将可用性放在第一位，那么开发者在面对问题时就需要避免那种本能的、面向一致性的解决方案。即便某些系统看起来应该将一致性作为第一优先级，但是为了最大限度地提高使用的成功率，也往往会优先选择可用性作为折中的办法。</p>
+</blockquote>
+<p>◆ 5.6 小结</p>
+<blockquote>
+<p>在跨服务的交互中实现ACID特性是很困难的，微服务需要采用不同的方式来实现一致性。</p>
+</blockquote>
+<blockquote>
+<p>基于事件的架构可以解除各个独立组件之间的耦合，并为微服务应用的业务逻辑和查询的可扩展性打下基础。</p>
+</blockquote>
+<p>◆ 第6章 设计高可靠服务</p>
+<blockquote>
+<p>彻底消除微服务应用中的故障是不可能的——与之对应的投入将是一个无底洞！反之，我们的重点应该放在设计出能够容忍依赖项出现故障的微服务，让这些微服务能够优雅地从故障中恢复正常或者能够减轻这些故障对其功能的影响。</p>
+</blockquote>
+<p>◆ 6.1 可靠性定义</p>
+<blockquote>
+<p>高可用通常用“9”来表示。两个9表示99%，5个9表示99.999%。生产环境上的关键服务中，如果可靠性低于这个值，是非常不正常的。</p>
+</blockquote>
+<blockquote>
+<p>尽可能地提升服务的可用性或者隔离不可靠部分的影响是至关重要的，这样才能保证应用整体的可用性</p>
+</blockquote>
+<p>◆ 6.2 哪些会出错</p>
+<blockquote>
+<p>极有可能的是，任何可能发生的灾难未来终会发生</p>
+</blockquote>
+<blockquote>
+<p>需要重点注意的是，硬件冗余会增加额外的维护成本。这些冗余方案有的过于复杂而难以设计和执行，还有的方案则纯粹是金钱的浪费</p>
+</blockquote>
+<p>◆ 6.3 设计可靠的通信方案</p>
+<blockquote>
+<p>如果故障是孤立和暂时性的，那么重试是一个很合理的选择。当异常行为发生时，重试操作一方面能够减轻对终端用户的影响，另一方面还能减少运维工作人员的介入</p>
+</blockquote>
+<blockquote>
+<p>但是如果故障是持续性的——比如，如果market-data服务的承载力下降了，后续的请求会使这一问题进一步恶化并导致系统稳定性下降</p>
+</blockquote>
+<blockquote>
+<p>坏的情况是，最初的故障不断被放大，market-data服务活活被重试方案压死了。</p>
+</blockquote>
+<blockquote>
+<p>永远要限制重试的总次数；使用带抖动的指数退避策略来均匀地分配重试请求和避免进一步加剧负载；仔细考虑哪些错误情况应该触发重试，以及哪些重试不大可能成功、哪些重试永远不会成功。</p>
+</blockquote>
+<blockquote>
+<p>如果某个服务的依赖项出现了故障，我们可以考虑4种后备方案：优雅降级、缓存、功能冗余和桩数据。</p>
+</blockquote>
+<blockquote>
+<p>当开发者不需要立刻得到响应，也不需要响应始终保持一致时，我们就可以使用异步通信技术来降低直接的服务调用的数量，相应地，这也能够提高系统整体的可用性</p>
+</blockquote>
+<p>◆ 6.4 最大限度地提高服务可靠性</p>
+<blockquote>
+<p>我们可以基于两个标准来对健康检查分类：存活性（liveness）和就绪性（readiness）。存活性检查通常只是简单地检查应用是否启动起来和是否正常运行。</p>
+</blockquote>
+<blockquote>
+<p>就绪性检查体现的是服务是否准备好处理通信数据，因为服务存活着并不意味着请求就会成功。一个服务还会有许多依赖——数据库、第三方服务、配置数据、缓存等——所以开发者可以使用就绪性检查来判断这些组件是否能够正确处理请求</p>
+</blockquote>
+<blockquote>
+<p>某些情况下，服务的功能会被降级和出现时延增大或者错误率增高的问题，而健康检查并不能反映出这种状态。在这种情况下，如果负载均衡器能够感知实例的时延、性能、负载情况，然后根据这些信息把请求路由给性能更高的或者负载更低的实例，那么将有很大裨益。</p>
+</blockquote>
+<blockquote>
+<p>一个合适的解决方案是明确地限制一个时间窗口内对协作服务的请求频率或者总有效请求量</p>
+</blockquote>
+<blockquote>
+<p>在开发一个服务时，读者应该：对服务流量的现状和预期增长情况建模，以确保对服务的可能使用情况做到心里有数；估算数据请求流量所需要的服务容量；针对估算的容量通过压力测试来验证所部署服务的实际容量；根据业务和服务指标来视情况重新估算容量。</p>
+</blockquote>
+<blockquote>
+<p>单个服务层面，开发者应该将每个服务的压力测试实现自动化并成为交付流水线的一部分</p>
+</blockquote>
+<blockquote>
+<p>混沌测试会倒逼着微服务应用在生产环境中出现故障。通过引入不稳定性因素以及故障，混沌测试可以精确模拟真实系统的故障，同时也让工程团队得到训练，使得他们能够处理这些故障。</p>
+</blockquote>
+<p>◆ 6.5 默认安全</p>
+<blockquote>
+<p>一种常见的确保服务间正确通信的方式是强制使用特定的类库：一套实现了断路器、重试和后备方案等常见的交互模式的类库</p>
+</blockquote>
+<blockquote>
+<p>服务网格中，服务是通过一个服务网格应用来相互通信的，这个应用通常是作为一个单独的进程，它是和服务本身部署在同一台主机上的。开发者可以配置一个代理来管理相应的流量——对请求进行重试、管理超时或者在不同服务间进行负载均衡。从调用方的角度，这个网格并不存在——它和往常一样向另一个服务发送HTTP或者RPC调用。</p>
+</blockquote>
+<blockquote>
+<p>对于那些用多种不同技术开发的应用而言，这能够减少服务之间的通信防御性工作，提高通信安全性。否则，想要在不同的语言上都实现一致的通信方式会需要大量的投入，</p>
+</blockquote>
+<p>◆ 6.6 小结</p>
+<blockquote>
+<p>错误量达到一定阈值时，服务之间的断路器会通过快速失败来避免连锁故障</p>
+</blockquote>
+<blockquote>
+<p>服务可以使用限流策略来保护其免于受到突发的超过服务容量承载能力的负载请求高峰的影响</p>
+</blockquote>
+<p>◆ 7.1 微服务底座</p>
+<blockquote>
+<p>为了简化团队创建服务的工作，花些时间来为组织内构建和维护服务所使用的每种语言提供一套基本框架和经过审查的工具是很值得的。</p>
+</blockquote>
+<blockquote>
+<p>（1）从一开始就支持在容器调度器中部署服务（CI/CD）。<br>（2）支持日志聚合。<br>（3）收集度量指标数据。<br>（4）具备同步和异步通信机制。<br>（5）错误报告。</p>
+</blockquote>
+<p>◆ 7.2 微服务底座的目的</p>
+<blockquote>
+<p>微服务底座的目的是简化服务的创建过程，同时确保开发者拥有一套所有服务都要遵循的标准，而不管哪个团队负责相应的服务</p>
+</blockquote>
+<blockquote>
+<p>底座可以通过不断地包含进不同团队的新发现、新成果来持续演进，这样开发者就可以始终和组织内部的实践和经验保持同步更新，以应对不同的使用场景。</p>
+</blockquote>
+<p>◆ 7.3 设计服务底座</p>
+<blockquote>
+<p>服务的运行和维护与编写代码同等重要，而且大部分情况下，服务运行的时间要远远大于开发所需要的时间。</p>
+</blockquote>
+<p>◆ 8.1 部署的重要性</p>
+<blockquote>
+<p>（1）面对大量的发布和组件变更时应保持稳定性；<br>（2）避免会导致组件在构建阶段或者发布阶段产生依赖关系的紧耦合；<br>（3）服务API发布不兼容的变更可能会对客户端产生非常大的负面影响；<br>（4）服务下线。</p>
+</blockquote>
+<p>◆ 8.2 微服务生产环境</p>
+<blockquote>
+<p>微服务架构的流行、DevOps实践（如基础设施即代码，infrastructure as code）的广泛采用以及使用云服务提供商来运行应用的情况日益增多，这三者同时存在并非巧合。这些实践能够让服务快速迭代和部署，从而使微服务架构成为一种可扩展和可行的方案。</p>
+</blockquote>
+<p>◆ 8.4 构建服务工件</p>
+<blockquote>
+<p>理想的微服务部署工件允许开发者打包特定版本的已编译代码，指定任何二进制依赖项，并为启动和停止该服务提供标准的操作抽象概念。这应该是与环境无关的：开发者应该能够在本地、测试和生产中运行相同的工件。通过将不同语言在运行时的差异抽取出来，开发者可以降低认知负担，并为管理这些服务提供通用的抽象概念。</p>
+</blockquote>
+<blockquote>
+<p>不同于分发整个机器，像Docker或者rkt这样的容器化工具提供了一种更加轻量级的封装应用及其依赖的方式。</p>
+</blockquote>
+<p>◆ 第9章 基于容器和调度器的部署</p>
+<blockquote>
+<p>对于微服务部署和运行而言，容器是一种非常优雅的抽象，它提供了跨语言的统一打包方案、应用级隔离以及快速的启动时间。</p>
+</blockquote>
+<blockquote>
+<p>容器并不是使用微服务的必要条件。开发者可以使用许多方法来部署服务，比如使用我们在第8章中提到的单虚拟机单服务模型。但是借助调度程序，容器提供了一种特别优雅和灵活的方法来满足我们的两个部署目标：速度和自动化。</p>
+</blockquote>
+<p>◆ 9.1 服务容器化</p>
+<blockquote>
+<p>如果我们想要交付服务，需要先搞清楚如何把服务封装到容器里</p>
+</blockquote>
+<blockquote>
+<p>使用公开的Docker镜像会潜在地增加安全风险。许多镜像，特别是那些非官方维护的镜像，并不会定期更新或者修复漏洞，这会增加系统的风险。</p>
+</blockquote>
+<blockquote>
+<p>如果只在开发者的机器上使用该镜像，那么它没有多大用处。在部署此镜像时，开发者应该从Docker注册中心拉取该镜像。</p>
+</blockquote>
+<p>◆ 9.2 集群部署</p>
+<blockquote>
+<p>直接创建或者销毁pod都是不正常的；相反，pod是由控制器管理的。</p>
+</blockquote>
+<blockquote>
+<p>为了引用每个协作方服务的相关端点而将端口号或IP地址硬编码到每个服务中，是非常愚蠢的行为，任何服务都不应该与另一个内部网络位置紧密耦合在一起。相反，开发者需要通过某种已知名称的方式来访问合作者。</p>
+</blockquote>
+<blockquote>
+<p>Kubernetes集成了本地DNS服务来实现这一点，它在Kubernetes主节点上作为一个pod运行。当创建新的服务时，DNS服务会以{my-svc}.{my-namespace}. svg .cluster.local格式为该服务分配一个名称</p>
+</blockquote>
+<p>◆ 第10章 构建微服务交付流水线</p>
+<blockquote>
+<p>部署流水线是构建持续交付的核心基石。将其想象成工厂的生产线：一条传送带把软件从提交的代码制作成可部署的工件再到运行中的软件，并在每个阶段持续评估产出物的质量。这样做可以提高部署频率，减小部署规模，并且不会出现将爆炸性的大量改动部署到生产环境中的情况。</p>
+</blockquote>
+<p>◆ 10.1 让部署变得平淡</p>
+<blockquote>
+<p>发布少量的变更并系统地验证它们的质量，能够让团队在快速发布功能的过程中信心更强。版本的规模越小，相应的风险也就越低。持续交付的方法使团队能够快速独立地交付服务。</p>
+</blockquote>
+<blockquote>
+<p>持续交付并不完全等同于持续部署。对于后者，只有每次验证后的变更才会被自动部署到生产环境。而对于前者，读者可以将每次变更都部署到生产环境，但是否部署取决于工程师团队和业务需求。</p>
+</blockquote>
+<p>◆ 10.2 使用Jenkins构建流水线</p>
+<blockquote>
+<p>除了没有真实流量，预发布环境的基础设施配置应该和生产环境中的基本相同。它不需要以和生产环境相同的规模来运行。</p>
+</blockquote>
+<blockquote>
+<p>尽管预发布环境很重要，但是在微服务应用中，预发布环境是很难管理的</p>
+</blockquote>
+<blockquote>
+<p>（1）流水线应该等待批准后才可以继续将服务部署到生产环境。<br>（2）在审批通过后，首先发布一个金丝雀实例。这有助于验证新版本在面对真正的生产环境请求时是否能保持稳定。<br>（3）如果金丝雀实例运行正常，那么流水线可以继续将剩下的实例部署到生产环境。<br>（4）如果金丝雀实例的运行未达预期，则回滚该金丝雀实例。</p>
+</blockquote>
+<p>◆ 11.1 稳固的监控技术栈</p>
+<blockquote>
+<p>监控能够让开发者了解系统是否在正常运行，而可观测性能够让开发者知道系统没有正常运行的原因。</p>
+</blockquote>
+<blockquote>
+<p>套监控系统技术栈的各个组成部分：度量指标、日志和链路追踪。</p>
+</blockquote>
+<blockquote>
+<p>开发者需要能够收集许多来源的数据，以进行系统监控和问题诊断或者在问题发生之前阻止其发生。</p>
+</blockquote>
+<blockquote>
+<p>开发者应该关注四大黄金标志：时延、错误量、通信量和饱和度。</p>
+</blockquote>
+<blockquote>
+<p>展现这些度量指标时，开发者应该聚焦于最重要的部分，如响应时间、错误量和通信量。</p>
+</blockquote>
+<p>◆ 12.4 服务间的跟踪交互</p>
+<blockquote>
+<p>日志并不是唯一可以使用的工具，还可以采用另一种不依赖日志数据的方法来完成此任务。</p>
+</blockquote>
+<p>◆ 第13章 微服务团队建设</p>
+<blockquote>
+<p>软件是由人来开发的，构建出优秀的软件不仅需要实现方案的决策，还需要有效的沟通、协调和协作。</p>
+</blockquote>
+<blockquote>
+<p>微服务架构对于完成任务非常有用。一方面，它使读者可以借助微服务快速构建新的服务和能力，并且与现有的功能保持相互独立；另一方面，它又增加了日常工作（比如运维、安全和值班待命支持）的范围和复杂度。微服务可以显著地改变一个组织的技术战略，需要工程师具有强烈的主人翁精神和责任感。建设这种团队文化，同时尽可能减少摩擦和加快速度，这对于成功实现微服务是至关重要的。</p>
+</blockquote>
+<p>◆ 13.1 建设高效团队</p>
+<blockquote>
+<p>对那些成功搭建了微服务应用的组织来说，想要分清楚原因和结果是很困难的。究竟是合理的组织结构和团队表现决定了细粒度的服务开发方式，还是细粒度服务的构建经验决定了组织结构和团队表现呢？</p>
+</blockquote>
+<blockquote>
+<p>在许多企业中，转向微服务——或者任何真正的大规模架构调整——都是极具挑战性和破坏性的。没有人能够独自取得成功：需要寻找资助、建立信任，并准备好为自己的方案进行大量的辩论</p>
+</blockquote>
+<blockquote>
+<p>软件如何运行，如何在现实世界中观察它的行为，这些都应该反馈给软件以进行改进</p>
+</blockquote>
+<blockquote>
+<p>如果不负责运维工作的话，这些信息常常会丢失。这一原则也是DevOps运动的核心</p>
+</blockquote>
+<p>◆ 13.2 团队模型</p>
+<blockquote>
+<p>跨职能分组的团队由具有不同专长和角色的人员组成，旨在实现特定的业务目标</p>
+</blockquote>
+<blockquote>
+<p>跨职能分组的团队可以更紧密地与团队活动的最终目标保持一致。团队的多技能特点有利于加强所有权</p>
+</blockquote>
+<blockquote>
+<p>在某种意义上，开发者可以把这些服务看作大公司内部的小型初创企业。其中每一个服务都需要强烈关注它们的客户是谁，不管它们是外部的还是内部的。</p>
+</blockquote>
+<blockquote>
+<p>（1）观察团队规模。如果团队人数接近或超过9个人，那么这个团队很可能承担了太多的工作，或开始遇到沟通耗时的问题。</p>
+</blockquote>
+<blockquote>
+<p>（2）考虑一致性。团队所执行的活动之间是否内聚和有紧密的联系?如果没有，那么团队中不同的工作小组之间可能存在着自然分裂。</p>
+</blockquote>
+<blockquote>
+<p>当刚开始使用微服务时，构建应用的团队通常也负责平台的构建任务</p>
+</blockquote>
+<blockquote>
+<p>随着时间的推移，这个平台需要满足多个团队的需求，在此阶段，读者可能会开始建立一个平台团队</p>
+</blockquote>
+<blockquote>
+<p>工程团队要对自己所负责服务产生的告警保持随时待命；平台和基础设施团队要对底层的基础设施或者公享服务（比如部署）保持随时待命；两个团队之间存在的升级途径可以支持对告警进一步调查。</p>
+</blockquote>
+<blockquote>
+<p>尽管自治团队提高了开发速度，但是它们也存在一些缺点：不同的团队可能会用不同的方式多次解决同一个问题；团队成员与其他团队中的同事之间的互动将会减少；团队成员可能会在不考虑全局背景或更广泛的组织需求的情况下做出局部决策。</p>
+</blockquote>
+<blockquote>
+<p>如果可以更快地交付功能，那么一定程度的重复是可以接受的。</p>
+</blockquote>
+<p>◆ 13.3 微服务团队的实践建议</p>
+<blockquote>
+<p>微服务应用的变动规模可能是巨大的。要跟上所有变化可能是很难的！期望所有工程师都能够深入了解所有服务及其交互方式是不合理的，特别是这些服务的拓扑结构可能在没有任何警告的情况下发生了变化</p>
+</blockquote>
+<p>◆ 13.5 小结</p>
+<blockquote>
+<p>应用架构和团队结构有着共生的关系。可以使用后者来改变前者。</p>
+</blockquote>
+</div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/02/22/go6-effectivego/"><span class="level-item">effective go 简读</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/5212221?s=460&amp;u=f890915eaab9ebc926b07b5b13749673e7a4cf0b&amp;v=4" alt="zhangxiaodel"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">zhangxiaodel</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">24</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">20</p></a></div></div></nav></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-09-24T08:55:10.000Z">2022-09-24</time></p><p class="title"><a href="/2022/09/24/Microservices-in-Action/">微服务实战 Microservices-in-Action</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-02-22T10:34:55.000Z">2021-02-22</time></p><p class="title"><a href="/2021/02/22/go6-effectivego/">effective go 简读</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-02-19T03:52:10.000Z">2021-02-19</time></p><p class="title"><a href="/2021/02/19/go5-easylimiter/">简单方法限流实现-利用缓存通道写满时写阻塞, 为空时读阻塞的特性</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-25T06:28:47.000Z">2021-01-25</time></p><p class="title"><a href="/2021/01/25/vue-webpacket-externals/">BundleAnalyzer Webpack externals配置,优化chunk-vendor大小,提高初始加载速度</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-07T08:35:51.000Z">2021-01-07</time></p><p class="title"><a href="/2021/01/07/go4-singleflight/">singleflight在并发场景下保护下游业务</a></p></div></article></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/BundleAnalyzer-Webpack-externals-chunk-vendor/"><span class="tag">BundleAnalyzer,  Webpack externals, chunk-vendor</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/celery-flower-redis/"><span class="tag">celery ,  flower , redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/dict-hash/"><span class="tag">dict, hash</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/effective-go%E9%A2%84%E8%A7%88/"><span class="tag">effective, go预览</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/flask-request/"><span class="tag">flask, request</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/go-test-TestMain/"><span class="tag">go test TestMain</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/goroutine-go-pool-%E5%B9%B6%E5%8F%91-%E5%8D%8F%E7%A8%8B/"><span class="tag">goroutine go pool 并发 协程</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/json-partial/"><span class="tag">json ,  partial</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/limiter-ratelimiter/"><span class="tag">limiter, ratelimiter</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pr-pull-request/"><span class="tag">pr, pull request</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pyenv-python3-6-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/"><span class="tag">pyenv, python3.6 ,虚拟环境</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pytest-mock/"><span class="tag">pytest, mock</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python3-7-virtualenv-bz2/"><span class="tag">python3.7, virtualenv , bz2</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/singleflight-goroutine/"><span class="tag">singleflight goroutine</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/sqlalchemy-orm/"><span class="tag">sqlalchemy, orm</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vuejs-class/"><span class="tag">vuejs, class</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web-csrf-xss/"><span class="tag">web, csrf ,xss</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web-flask-jsonify/"><span class="tag">web, flask ,jsonify</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web-flask-token/"><span class="tag">web, flask ,token</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%A4%87%E4%BB%BD/"><span class="tag">数据库,备份</span><span class="tag">1</span></a></div></div></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">run coder</a><p class="is-size-7"><span>&copy; 2022 zhangxiaodel</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><!--!--><script src="/js/main.js" defer></script><!--!--></body></html>
